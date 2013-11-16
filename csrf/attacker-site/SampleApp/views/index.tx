@@ -1,6 +1,6 @@
 : cascade base
 : around content -> {
-<img src="<: $c.req.uri_for('/img/attacker.png') :>" width=400>
+<img src="<: $c.req.uri_for('/img/attacker.png') :>" width=300>
 <h2>「ひっかっかったな...」</h2>
 <iframe src="/attack" style="display: none;">
 </iframe>
