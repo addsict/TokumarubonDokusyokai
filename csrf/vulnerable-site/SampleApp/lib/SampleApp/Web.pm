@@ -15,16 +15,7 @@ sub is_valid_account {
     return;
 }
 
-filter 'set_username' => sub {
-    my $app = shift;
-    sub {
-        my ( $self, $c )  = @_;
-        $c->stash->{username} = $c->env->{'psgix.session'}->{id};
-        $app->($self,$c);
-    }
-};
-
-get '/' => [qw/set_username/] => sub {
+get '/' => sub {
     my ( $self, $c )  = @_;
     my $session = $c->env->{'psgix.session'};
     if ($session->{id}) {
@@ -100,19 +91,6 @@ post '/login' => sub {
         $c->env->{'psgix.session'}->{id} = $username;
         $c->redirect('/');
     }
-};
-
-get '/json' => sub {
-    my ( $self, $c )  = @_;
-    my $result = $c->req->validator([
-        'q' => {
-            default => 'Hello',
-            rule => [
-                [['CHOICE',qw/Hello Bye/],'Hello or Bye']
-            ],
-        }
-    ]);
-    $c->render_json({ greeting => $result->valid->get('q') });
 };
 
 1;
