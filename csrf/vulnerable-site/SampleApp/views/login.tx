@@ -1,0 +1,14 @@
+: cascade base
+: around content -> {
+<h1>ログイン</h1>
+<form action="/login" method="POST">
+    <div>
+        ユーザ名: <input type="text" name="username" />
+    </div>
+    <div>
+        パスワード: <input type="password" name="password" />
+    </div>
+    <button class="btn">ログイン</button>
+</form>
+: }
+

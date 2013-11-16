@@ -1,0 +1,29 @@
+: cascade base
+: around content -> {
+<!-- <h1>こんにちは <: $c.stash.username :>さん</h1> -->
+
+<h2>新規投稿</h2>
+<div class="well">
+    <form action="/" method="POST">
+        <div>
+            <p>タイトル</p>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <p>本文</p>
+            <textarea type="textarea" name="body" rows="10" cols="50"></textarea>
+        </div>
+        <button class="btn btn-primary">投稿</button>
+    </form>
+</div>
+<h2>記事一覧</h2>
+: for $entries -> $entry {
+<div class="well">
+    <b><: $entry['date'] :></b>
+    <hr style="margin: 0;">
+    <h3><: $entry['title'] :></h3>
+    <p><: $entry['body'] :></p>
+</div>
+: }
+: }
+
