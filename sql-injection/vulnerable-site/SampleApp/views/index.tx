@@ -1,0 +1,30 @@
+: cascade base
+: around content -> {
+<div class="well">
+<div>
+    <h2>ユーザ一覧</h2>
+    <ul>
+        <li>addsict</li>
+        <li>nozoe</li>
+        <li>laysakura</li>
+        <li>murooka</li>
+    </ul>
+</div>
+    <form action="/" method="GET">
+        <div>ユーザ: <input type="text" name="username"> の預金残高を確認</div>
+        <button class="btn btn-primary">確認</button>
+    </form>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>ユーザ名(username)</th>
+            <th>預金残高(balance)</th>
+        </tr>
+        <tr>
+            <td><: $username :></td>
+            <td>¥ <: $balance :></td>
+        </tr>
+    </table>
+    * ヒント: テーブル名はbank_account
+: }
+

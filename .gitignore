@@ -3,3 +3,6 @@
 
 # carton
 *local/
+
+# MySQL configuration file
+Config.pm
