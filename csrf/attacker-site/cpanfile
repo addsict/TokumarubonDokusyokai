@@ -1,4 +1,1 @@
 requires 'Kossy';
-requires 'DBI';
-requires 'DBD::mysql';
-requires 'Plack::Middleware::Log::Minimal';

