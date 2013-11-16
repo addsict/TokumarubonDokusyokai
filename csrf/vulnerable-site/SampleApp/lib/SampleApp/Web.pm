@@ -27,6 +27,19 @@ sub create_entry {
     };
 }
 
+filter 'check_referer' => sub {
+    my $app = shift;
+    sub {
+        my ( $self, $c )  = @_;
+        if ($c->req->headers->{referer} =~ m#^http://localhost:5000/#) {
+            $app->($self,$c);
+        } else {
+            $c->res->status(403);
+            $c->res;
+        }
+    }
+};
+
 get '/' => sub {
     my ( $self, $c )  = @_;
     my $session = $c->env->{'psgix.session'};
@@ -37,7 +50,7 @@ get '/' => sub {
     }
 };
 
-post '/' => sub {
+post '/' => [qw/check_referer/] => sub {
     my ( $self, $c )  = @_;
     my $session = $c->env->{'psgix.session'};
 
