@@ -24,12 +24,12 @@ $ carton install
 vulnerable-siteの方は必ず5000番ポートで動かすようにして下さい。
 ```sh
 $ cd vulnerable-site/
-$ carton exec - plackup -r -p 5000
+$ carton exec -- plackup SampleApp/app.psgi -r -p 5000
 ```
 
 ```sh
 $ cd attacker-site/
-$ carton exec - plackup -r -p 5001
+$ carton exec -- plackup SampleApp/app.psgi -r -p 5001
 ```
 
 ブラウザでhttp://localhost:5000(vulnerable-siteの方)にアクセスしログインします。  
