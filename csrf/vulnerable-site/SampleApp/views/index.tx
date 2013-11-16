@@ -13,6 +13,7 @@
             <p>本文</p>
             <textarea type="textarea" name="body" rows="3" cols="50"></textarea>
         </div>
+        <input type="hidden" name="token" value=<: $session_id :>>
         <button class="btn btn-primary">投稿</button>
     </form>
 </div>

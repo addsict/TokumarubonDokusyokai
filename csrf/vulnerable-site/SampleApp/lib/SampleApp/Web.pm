@@ -27,17 +27,40 @@ sub create_entry {
     };
 }
 
+filter 'token_check' => sub {
+    my $app = shift;
+    sub {
+        my ( $self, $c )  = @_;
+        my $session_id = $c->env->{'psgix.session.options'}->{id};
+        my $result = $c->req->validator([
+            'token' => { rule => [['NOT_NULL', '']], },
+        ]);
+        my $token = $result->valid('token');
+        if ($session_id eq $token) {
+            $app->($self,$c);
+        } else {
+            $c->res->status(403);
+            $c->res;
+        }
+    }
+};
+
 get '/' => sub {
     my ( $self, $c )  = @_;
     my $session = $c->env->{'psgix.session'};
     if ($session->{id}) {
-        $c->render('index.tx', {entries => $session->{entries}});
+        my $session_id = $c->env->{'psgix.session.options'}->{id};
+        debugf $session_id;
+        $c->render('index.tx', {
+            entries => $session->{entries},
+            session_id => $session_id,
+        });
     } else {
         $c->redirect('/login');
     }
 };
 
-post '/' => sub {
+post '/' => [qw/token_check/] => sub {
     my ( $self, $c )  = @_;
     my $session = $c->env->{'psgix.session'};
 
